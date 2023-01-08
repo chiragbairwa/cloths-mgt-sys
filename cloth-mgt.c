@@ -166,6 +166,11 @@ main:
 		system("cls");
 		goto main;
 	}
+	if(choice != 7){
+        getch();
+        system("cls");
+        goto main;
+	}
 }
 
 void add_item()
@@ -185,9 +190,9 @@ void add_item()
 		fp = fopen("NextFile.dat", "a+"); // opening file and creating a staff.txt file to append or write
 
 		// if condition to check file is NULL or not
-		if ((fp = fopen("NextFile.dat", "a+")) != NULL){
+		if (fp  != NULL){
 		I:
-			printf("\nItem Code\t :");
+			printf("\nItem Code\t\t : ");
 			scanf("%i", &ID);
 			while (fscanf(fp, "%s %s %i %i %i", st.productname, st.productcomp, &st.price, &st.productid, &st.Qnt) != EOF)
 			{
@@ -206,7 +211,7 @@ void add_item()
 		}
 		else // runs if sfile is empty
 		{
-			printf("\nProduct Code\t :");
+			printf("\nProduct Code\t\t : ");
 			scanf("%i", &st.productid);
 		}
 
@@ -216,7 +221,7 @@ void add_item()
 
 			// printf("<<<<<<<<<<<<<<Enter Product Detail>>>>>>>>>>>>>");
 			fflush(stdin);
-			printf("\nItem Name\t :");
+			printf("\nItem Name\t\t : ");
 			gets(st.productname); // get input string
 			st.productname[0] = toupper(st.productname[0]);
 			// iterate for every character in string
@@ -242,7 +247,7 @@ void add_item()
 		{
 			char productcomp[40];
 			fflush(stdin);
-			printf("\nItem Brand\t :");
+			printf("\nItem Brand\t\t : ");
 			gets(st.productcomp); // get input string
 			st.productcomp[0] = toupper(st.productcomp[0]);
 			// iterate for every character in string
@@ -266,7 +271,7 @@ void add_item()
 		// productid
 		do
 		{
-			printf("\nPrice [10-5000]Rupees:");
+			printf("\nPrice [10-5000]Rupees    : ");
 			scanf("%i", &st.price);
 			if (st.price < 10 || st.price > 5000)
 			{
@@ -276,7 +281,7 @@ void add_item()
 
 		do
 		{
-			printf("\nQuantity [1-500]\t:");
+			printf("\nQuantity [1-500]\t : ");
 			scanf("%i", &st.Qnt);
 			if (st.Qnt < 1 || st.Qnt > 500)
 			{
@@ -291,13 +296,11 @@ void add_item()
 		//	printf("\nProduct Quantity :");
 		//	scanf("%i",&st.Qnt);
 
-		fp = fopen("NextFile.dat", "a");
-		fprintf(fp, "\n%s %s %i %i %i", st.productname, st.productcomp, st.price, st.productid, st.Qnt);
+		fprintf(fp, "%s %s %i %i %i", st.productname, st.productcomp, st.price, st.productid, st.Qnt);
 		fclose(fp);
 		printf("\nPress 'Enter' to add more item and any other key to go to main menu");
 
-	} while ((c = getch()) == '\r');
-	menu();
+	} while ((st.c = getch()) == '\r');
 }
 
 void search_item()
@@ -371,9 +374,8 @@ void deleteproduct(void)
 	rename("TempFile.dat", "NextFile.dat");
 
 	printf("\nPress any key to go to Main Menu!");
-	while ((st.c = getch()) == '\r')
-		;
-	menu();
+	while ((st.c = getch()) == '\r');
+
 }
 
 void total_bill()
@@ -468,7 +470,6 @@ void read_item()
 	printf("\nPress any key to go to Main Menu!");
 	// while((st.c = getch()) =='\r');
 	getch();
-	menu();
 }
 
 void edit_item()
@@ -536,7 +537,7 @@ void edit_item()
 				{
 					char productcomp[40];
 					fflush(stdin);
-					printf("\nNew Item's Brand\t\t:");
+					printf("\nNew Item's Brand\t:");
 					gets(st.productcomp); // get input string
 					st.productcomp[0] = toupper(st.productcomp[0]);
 					// iterate for every character in string
@@ -559,7 +560,7 @@ void edit_item()
 
 				do
 				{
-					printf("\nNew Price [10-5000]Rupees:");
+					printf("\nNew Price [10-5000]Rupees: ");
 					scanf("%i", &st.price);
 					if (st.price < 10 || st.price > 5000)
 					{
@@ -567,12 +568,12 @@ void edit_item()
 					}
 				} while (st.price < 10 || st.price > 5000);
 
-				printf("\nEnter New Item's Code\t\t:");
+				printf("\nEnter New Item's Code\t: ");
 				scanf("%i", &st.productid);
 
 				do
 				{
-					printf("\nNew Quantity [1-500]\t:");
+					printf("\nNew Quantity [1-500]\t: ");
 					scanf("%i", &st.Qnt);
 					if (st.Qnt < 1 || st.Qnt > 500)
 					{
@@ -605,11 +606,12 @@ void edit_item()
 		rename("TempFile.dat", "NextFile.dat");
 		getch();
 	}
-	menu();
+
 }
 
 int main(){
 	welcome(); // call for welcome screen function
+
 	login();	// call for login function
 
 	return 0;
